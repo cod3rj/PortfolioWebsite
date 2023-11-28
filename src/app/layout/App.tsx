@@ -1,6 +1,10 @@
 import './app.scss'
 import Navbar from "../../features/navbar/Navbar.tsx";
 import Hero from "../../features/hero/Hero.tsx";
+import Parallax from "../../features/parallax/Parallax.tsx";
+import Services from "../../features/services/Services.tsx";
+import Portfolio from "../../features/portfolio/Portfolio.tsx";
+import Contact from "../../features/contact/Contact.tsx";
 
 function App() {
     return (
@@ -9,13 +13,19 @@ function App() {
                 <Navbar/>
                 <Hero/>
             </section>
-            <section id="Services">Parallax</section>
-            <section>Services</section>
-            <section id="Portfolio">Parallax</section>
-            <section>Portfolio1</section>
-            <section>Portfolio2</section>
-            <section>Portfolio3</section>
-            <section id="Contact">Contact</section>
+            <section id="Services">
+                <Parallax type="services"/>
+            </section>
+            <section>
+                <Services/>
+            </section>
+            <section id="Portfolio">
+                <Parallax type="portfolio"/>
+            </section>
+            <Portfolio/>
+            <section id="Contact">
+                <Contact/>
+            </section>
         </>
     )
 }
