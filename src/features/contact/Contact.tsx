@@ -1,6 +1,7 @@
 import {motion, useInView} from "framer-motion";
 import "./contact.scss"
-import {useRef} from "react";
+import {useRef, useState} from "react";
+import emailjs from '@emailjs/browser';
 
 const variants = {
     initial: {
@@ -18,8 +19,23 @@ const variants = {
 }
 const Contact = () => {
     const ref = useRef();
+    const formRef = useRef();
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const isInView = useInView(ref, {margin: "-100px"})
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm('service_20a2lrj', 'template_onsnw1v', formRef.current, 'Gai_DHG6xLrWvMznW')
+            .then((result) => {
+                setSuccess(true);
+            }, (error) => {
+                setError(true);
+            });
+    };
+
     return (
         <>
             <motion.div ref={ref} className="contact" variants={variants} initial="initial" whileInView="animate">
@@ -59,11 +75,13 @@ const Contact = () => {
                         </g>
                         </svg>
                     </motion.div>
-                    <motion.form initial={{opacity: 0}} whileInView={{opacity:1}} transition={{delay: 4, duration: 1}}>
-                        <input type="text" required placeholder="Name"/>
-                        <input type="email" required placeholder="Email"/>
-                        <textarea rows={8} placeholder="Message"/>
+                    <motion.form ref={formRef} onSubmit={sendEmail} initial={{opacity: 0}} whileInView={{opacity:1}} transition={{delay: 4, duration: 1}}>
+                        <input type="text" required placeholder="Name" name="name"/>
+                        <input type="email" required placeholder="Email" name="email"/>
+                        <textarea rows={8} placeholder="Message" name="message"/>
                         <button>Submit</button>
+                        {error && "Error sending email"}
+                        {success && "Email sent successfully"}
                     </motion.form>
                 </div>
             </motion.div>

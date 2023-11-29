@@ -4,7 +4,7 @@ import {useRef} from "react";
 
 const variants = {
     initial: {
-        x: -500,
+        x: -350,
         y: 100,
         opacity: 0,
     },
@@ -21,8 +21,8 @@ const variants = {
 
 const Services = () => {
     const ref = useRef();
-
     const isInView = useInView(ref, "-100px")
+
     return (
         <>
             <motion.div className="services"
